@@ -3,6 +3,7 @@ package com.example.shopnow.ui
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,7 +40,8 @@ fun ProductDetails(product: Product) {
     Column(
         Modifier
             .padding(10.dp)
-            .fillMaxSize()
+            .fillMaxSize().
+                background(Color.White)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

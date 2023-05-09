@@ -30,36 +30,52 @@ import com.example.shopnow.model.Product
 import com.example.shopnow.model.products
 
 @Composable
-fun ProductList(){
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(6.dp), contentPadding = PaddingValues(10.dp)){
-   items(items = products) { product ->
-       ProductCard(product = product){
-
-       }
-   }
+fun ProductList(onClick: (product: Product) -> Unit) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        contentPadding = PaddingValues(10.dp)
+    ) {
+        items(items = products) { product ->
+            ProductCard(product = product) {
+                onClick(product)
+            }
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductCard(product: Product, onClick: () -> Unit){
-    ElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .height(130.dp), onClick = onClick ) {
+fun ProductCard(product: Product, onClick: () -> Unit) {
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(130.dp), onClick = onClick
+    ) {
         Row(Modifier.padding(10.dp)) {
-            Image(modifier = Modifier.weight(5f), painter = painterResource(id = product.imageId), contentDescription = "")
+            Image(
+                modifier = Modifier.weight(5f),
+                painter = painterResource(id = product.imageId),
+                contentDescription = ""
+            )
             Spacer(modifier = Modifier.size(15.dp))
-            Column(modifier = Modifier
-                .weight(5f)
-                .fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Column(
+                modifier = Modifier
+                    .weight(5f)
+                    .fillMaxHeight(), verticalArrangement = Arrangement.Center
+            ) {
                 Text(text = product.name, style = MaterialTheme.typography.titleMedium)
-                Text(text ="₹${product.price}")
+                Text(text = "₹${product.price}")
                 Row() {
-                    RatingBar(rating = product.rating,Modifier.height(20.dp))
+                    RatingBar(rating = product.rating, Modifier.height(20.dp))
                     Text(text = "(${product.ratingCount})")
                 }
-                Text(modifier = Modifier.padding(vertical = 2.dp), text = product.delivery, style = MaterialTheme.typography.labelSmall.copy(
-                    Color.DarkGray))
+                Text(
+                    modifier = Modifier.padding(vertical = 2.dp),
+                    text = product.delivery,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        Color.DarkGray
+                    )
+                )
 
             }
         }
@@ -69,12 +85,15 @@ fun ProductCard(product: Product, onClick: () -> Unit){
 }
 
 @Preview
-@Composable 
-fun ProductCardPreview(){
+@Composable
+fun ProductCardPreview() {
     ProductCard(product = products.first(), onClick = {})
 }
+
 @Preview
 @Composable
-fun ProductListPreview(){
-    ProductList()
+fun ProductListPreview() {
+    ProductList(){
+
+    }
 }
